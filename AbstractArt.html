@@ -1,0 +1,105 @@
+<html>
+<head>
+	<title>Abstract Art</title>
+	<script>
+		function artGenerator ()
+		{
+		
+			var canvas = document.getElementById('artCanvas');
+			var context = canvas.getContext('2d');
+			// clear our canvas
+			fillBackgroundColor(canvas,context);
+			//draw shapes
+			var colors = ['red','blue','green','yellow','black'];
+			var decider = Math.floor(Math.random()*50);
+			console.log(decider);
+			for(var i=0; i<50; i++){
+
+				if ((decider%2 == 0))
+				{
+					var color = colors[Math.floor(Math.random() * colors.length)];
+					drawSquare(canvas,context,color);
+
+				}
+				else if ((decider%2 != 0))
+				{
+					var color = colors[Math.floor(Math.random() * colors.length)];
+					drawCircle(canvas,context,color);
+				}
+			}
+			// generate random tiles
+			var title = makeTitle();
+			alert(title);
+			//draw the tile
+			drawText(canvas,context,title);
+		}
+		function makeTitle()
+		{
+			var lines = [['Meditative','Objective','Reflective','Transformative'], ['Ellipses','State','Emotion','Composition'],['I','II','III','V']];
+			var title = '';
+
+			for (var i =0; i<lines.length; i++)
+			{
+				var random = Math.floor(Math.random()*lines[i].length);
+				title += lines[i][random] + ' ';
+			}
+			return title;
+		}
+		function degreesToRadians(degrees)
+		{
+			return (degrees *Math.PI)/180;
+		}
+		function drawText(canvas,context,title)
+		{
+			context.fillStyle = 'white';
+			context.font = 'bold lem sans-serif';
+			context.textAlign='right';
+			context.fillText(title,canvas.width-20,canvas.height-40);
+			
+		}
+		function drawCircle(canvas,context,color)
+		{
+			var radius = Math.floor(Math.random() * 40);
+			var x  = Math.floor(Math.random() *canvas.width);
+			var y = Math.floor(Math.random() *canvas.height);
+			context.beginPath();
+			context.arc(x,y, radius, 0, degreesToRadians(360),true);
+			context.fillStyle = color;
+			context.fill();
+		}
+		function drawSquare (canvas,context,color)
+		{
+
+			
+			var x = Math.floor(Math.random() * canvas.width);
+			var y = Math.floor(Math.random() * canvas.width);
+			var width = Math.floor(Math.random() * 40)
+			context.rect(x,y,width,width);
+			context.fillStyle = color;
+			context.fill();
+		}
+		function fillBackgroundColor(canvas,context)
+		{	
+			var colors = ['crimson','darkMagenta','magenta','blueViolet'];
+
+			var color = colors[Math.floor(Math.random() *colors.length)];
+			console.log (color);
+			context.fillStyle = color;
+			context.fillRect(0,0,canvas.width,canvas.height);
+			
+		}
+		window.onload = function()
+		{
+			var button = document.getElementById('artButton');
+			button.onclick = artGenerator;
+		};
+		
+		
+	</script>
+</head>
+<body>
+	<canvas id ="artCanvas" width = "600" height = "200"></canvas>
+	<input type = "button" id ="artButton" value = "New Art"></input>
+</body>
+</html>
+	
